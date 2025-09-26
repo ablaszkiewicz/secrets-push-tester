@@ -1,0 +1,28 @@
+name: Print Secret
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set env as secret
+        env:
+          KEY_A: ${{ secrets.KEY_A }}
+          KEY_B: ${{ secrets.KEY_B }}
+          KEY_C: ${{ secrets.KEY_C }}
+        run: |
+          import os
+          for q in (os.getenv("KEY_A")):
+              print(q)
+          for q in (os.getenv("KEY_B")):
+              print(q)
+          for q in (os.getenv("KEY_C")):
+              print(q)
+        shell: python
